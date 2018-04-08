@@ -1,0 +1,9 @@
+type Customer {
+    id: ID!
+    name: String!
+    email: String!
+}
+
+type Query {
+    customers(id: String): Customer!
+}
