@@ -14,7 +14,15 @@ First request
 
 ```
 {
-  test
+  customers(id: "22") {
+    id
+    name
+    email
+    company {
+      id
+      name
+    }
+  }
 }
 ```
 
@@ -22,9 +30,9 @@ or without graphiql:
 
 ```
 curl -X POST -H "Content-Type: application/json" -d '{
-        "query":"{test}",
-        "variables":null,
-        "operationName":null
+    "query":"{customers(id: \"22\") { id name email}}",
+    "variables":null,
+    "operationName":null
 }' "http://localhost:8000/graphql"
 ```
 
@@ -33,7 +41,12 @@ Response
 ```
 {
   "data": {
-    "test": "response"
+    "customers": {
+      "id": "22",
+      "name": "name",
+      "email": "a@b.com",
+      "company": null
+    }
   }
 }
 ```
