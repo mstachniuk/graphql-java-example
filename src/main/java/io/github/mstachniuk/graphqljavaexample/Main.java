@@ -1,6 +1,8 @@
 package io.github.mstachniuk.graphqljavaexample;
 
-import graphql.schema.*;
+import graphql.schema.DataFetchingEnvironment;
+import graphql.schema.FieldDataFetcher;
+import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
@@ -10,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.io.File;
+import java.util.Map;
 
 @SpringBootApplication
 public class Main {
@@ -27,7 +30,10 @@ public class Main {
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
                 .type("Query", builder ->
-                        builder.dataFetcher("customers", new CustomerDataFetcher("customers")))
+                        builder.dataFetcher("customers", new CustomerDataFetcher("customers"))
+                                )
+                .type("customers", builder ->
+                        builder.dataFetcher("company", new CompanyDataFetcher("company")))
                 .build();
         GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
         return graphQLSchema;
@@ -60,5 +66,30 @@ class Customer {
         this.id = id;
         this.name = name;
         this.email = email;
+    }
+}
+
+class CompanyDataFetcher extends FieldDataFetcher {
+
+    public CompanyDataFetcher(String fieldName) {
+        super(fieldName);
+    }
+
+    @Override
+    public Object get(DataFetchingEnvironment environment) {
+        Map<String, Object> arguments = environment.getArguments();
+        return new Company("11", "Company Corp.", "www.company.com");
+    }
+}
+
+class Company {
+    private String id;
+    private String name;
+    private String website;
+
+    public Company(String id, String name, String website) {
+        this.id = id;
+        this.name = name;
+        this.website = website;
     }
 }
