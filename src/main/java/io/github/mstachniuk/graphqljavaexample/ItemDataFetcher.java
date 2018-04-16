@@ -3,9 +3,12 @@ package io.github.mstachniuk.graphqljavaexample;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.PropertyDataFetcher;
 
+@Component
 public class ItemDataFetcher extends PropertyDataFetcher<List<Item>> {
 
 	public ItemDataFetcher() {

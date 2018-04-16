@@ -1,12 +1,16 @@
 package io.github.mstachniuk.graphqljavaexample;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.FieldDataFetcher;
 
-class CustomerDataFetcher extends FieldDataFetcher {
+@Component
+public class CustomerDataFetcher extends FieldDataFetcher {
 
-    public CustomerDataFetcher(String fieldName) {
-        super(fieldName);
+    public CustomerDataFetcher() {
+        super("customers");
     }
 
     @Override

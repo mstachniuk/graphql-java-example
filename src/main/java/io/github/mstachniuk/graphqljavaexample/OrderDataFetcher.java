@@ -2,12 +2,15 @@ package io.github.mstachniuk.graphqljavaexample;
 
 import java.util.Arrays;
 
+import org.springframework.stereotype.Component;
+
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.FieldDataFetcher;
 
+@Component
 public class OrderDataFetcher extends FieldDataFetcher {
-	public OrderDataFetcher(String orders) {
-		super(orders);
+	public OrderDataFetcher() {
+		super("orders");
 	}
 
 	@Override
