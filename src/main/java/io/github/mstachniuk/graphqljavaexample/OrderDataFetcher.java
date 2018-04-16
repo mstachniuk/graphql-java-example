@@ -1,21 +1,26 @@
 package io.github.mstachniuk.graphqljavaexample;
 
-import java.util.Arrays;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.FieldDataFetcher;
+import io.github.mstachniuk.graphqljavaexample.order.OrderService;
 
 @Component
 public class OrderDataFetcher extends FieldDataFetcher {
+
+	@Autowired
+	private OrderService orderService;
+
 	public OrderDataFetcher() {
 		super("orders");
 	}
 
 	@Override
 	public Object get(DataFetchingEnvironment environment) {
-		Object source = environment.getSource();
-		return Arrays.asList(new Order("55", Status.NEW), new Order("66", Status.DONE));
+		Customer source = environment.getSource();
+		String customerId = source.getId();
+		return orderService.getOrdersByCustomerId(customerId);
 	}
 }

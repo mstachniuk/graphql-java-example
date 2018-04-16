@@ -1,6 +1,6 @@
 package io.github.mstachniuk.graphqljavaexample;
 
-class Company {
+public class Company {
     private String id;
     private String name;
     private String website;

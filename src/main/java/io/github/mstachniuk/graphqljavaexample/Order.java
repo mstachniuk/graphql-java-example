@@ -8,4 +8,12 @@ public class Order {
 		this.id = id;
 		this.status = status;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
 }
