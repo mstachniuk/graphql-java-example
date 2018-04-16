@@ -35,6 +35,8 @@ public class Main {
                         builder.dataFetcher("company", new CompanyDataFetcher("company")))
                 .type("Customer", builder ->
                         builder.dataFetcher("orders", new OrderDataFetcher("orders")))
+		        .type("Order", builder ->
+		                builder.dataFetcher("items", new ItemDataFetcher()))
                 .build();
         GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
         return graphQLSchema;
