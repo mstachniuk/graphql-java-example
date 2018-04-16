@@ -3,6 +3,7 @@
 /out/
 /build
 *.class
+*.iml
 
 # Log file
 *.log
