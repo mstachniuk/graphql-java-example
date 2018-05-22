@@ -14,7 +14,7 @@ First request
 
 ```
 {
-  customers(id: "2") {
+  customer(id: "2") {
     id
     name
     email
@@ -45,7 +45,7 @@ or without graphiql:
 
 ```
 curl -X POST -H "Content-Type: application/json" -d '{
-    "query":"{\n  customers(id: \"2\") {\n    id\n    name\n    email\n    company {\n      id\n      name\n      website\n    }\n    orders {\n      id\n      status\n      items {\n        id\n        name\n        amount\n        price\n        currency\n        producer {\n          id\n        }\n      }\n    }\n  }\n}",
+    "query":"{\n  customer(id: \"2\") {\n    id\n    name\n    email\n    company {\n      id\n      name\n      website\n    }\n    orders {\n      id\n      status\n      items {\n        id\n        name\n        amount\n        price\n        currency\n        producer {\n          id\n        }\n      }\n    }\n  }\n}",
     "variables":null,
     "operationName":null
 }' "http://localhost:8000/graphql"
@@ -56,7 +56,7 @@ Response
 ```
 {
   "data": {
-    "customers": {
+    "customer": {
       "id": "2",
       "name": "name",
       "email": "a@b.com",
@@ -114,6 +114,41 @@ Response
 }
 ```
 
+Get all customers
+
+Request
+
+```
+{
+  customers {
+    id
+    name
+    email
+  }
+}
+```
+
+Response
+
+```
+{
+  "data": {
+    "customers": [
+      {
+        "id": "2",
+        "name": "name",
+        "email": "a@b.com"
+      },
+      {
+        "id": "19",
+        "name": "MyName",
+        "email": "me@my.com"
+      }
+    ]
+  }
+}
+```
+
 ## Variables
 
 
@@ -146,6 +181,34 @@ Response
       "id": "2",
       "name": "name",
       "email": "a@b.com"
+    }
+  }
+}
+```
+
+## Create
+
+Create Customer Request
+
+```
+mutation {
+  createCustomer(name: "MyName", email: "me@my.com") {
+    id
+    name
+    email
+  }
+}
+```
+
+Response
+
+```
+{
+  "data": {
+    "createCustomer": {
+      "id": "19",
+      "name": "MyName",
+      "email": "me@my.com"
     }
   }
 }

@@ -1,6 +1,8 @@
 package io.github.mstachniuk.graphqljavaexample.customer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -34,5 +36,9 @@ public class CustomerService {
 			id = String.valueOf(random.nextInt(1000));
 		}
 		return id;
+	}
+
+	public List<Customer> getAll() {
+		return new ArrayList<>(db.values());
 	}
 }

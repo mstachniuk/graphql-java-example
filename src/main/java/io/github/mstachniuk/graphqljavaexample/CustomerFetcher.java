@@ -8,12 +8,12 @@ import graphql.schema.FieldDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomerService;
 
 @Component
-public class CustomerDataFetcher extends FieldDataFetcher {
+public class CustomerFetcher extends FieldDataFetcher {
 
     @Autowired
     private CustomerService customerService;
 
-    public CustomerDataFetcher() {
+    public CustomerFetcher() {
         super("customers");
     }
 

@@ -33,7 +33,8 @@ type Item {
 }
 
 type Query {
-    customers(id: String): Customer!
+    customer(id: String!): Customer!
+    customers: [Customer]!
 }
 
 type Mutation {

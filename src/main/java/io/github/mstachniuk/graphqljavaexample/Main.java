@@ -17,7 +17,9 @@ import graphql.schema.idl.TypeDefinitionRegistry;
 public class Main {
 
 	@Autowired
-	private CustomerDataFetcher customerDataFetcher;
+	private CustomerFetcher customerFetcher;
+	@Autowired
+	private CustomersFetcher customersFetcher;
 	@Autowired
 	private CompanyDataFetcher companyDataFetcher;
 	@Autowired
@@ -40,7 +42,9 @@ public class Main {
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
                 .type("Query", builder ->
-                        builder.dataFetcher("customers", customerDataFetcher))
+                        builder.dataFetcher("customer", customerFetcher))
+                .type("Query", builder ->
+                        builder.dataFetcher("customers", customersFetcher))
                 .type("Customer", builder ->
                         builder.dataFetcher("company", companyDataFetcher))
                 .type("Customer", builder ->
