@@ -24,8 +24,10 @@ public class Main {
 	private OrderDataFetcher orderDataFetcher;
 	@Autowired
 	private ItemDataFetcher itemDataFetcher;
+	@Autowired
+	private CreateCustomerFetcher createCustomerFetcher;
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
 
@@ -45,8 +47,9 @@ public class Main {
                         builder.dataFetcher("orders", orderDataFetcher))
 		        .type("Order", builder ->
 		                builder.dataFetcher("items", itemDataFetcher))
+		        .type("Mutation", builder ->
+		                builder.dataFetcher("createCustomer", createCustomerFetcher))
                 .build();
-        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
-        return graphQLSchema;
+	    return schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
     }
 }

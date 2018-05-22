@@ -114,3 +114,39 @@ Response
 }
 ```
 
+## Variables
+
+
+Request:
+
+```
+query queryName($customerID: String) {
+  customers(id: $customerID) {
+    id
+    name
+    email
+  }
+}
+```
+
+Query Variables:
+
+```
+{
+  "customerID": "2"
+}
+```
+
+Response
+
+```
+{
+  "data": {
+    "customers": {
+      "id": "2",
+      "name": "name",
+      "email": "a@b.com"
+    }
+  }
+}
+```
