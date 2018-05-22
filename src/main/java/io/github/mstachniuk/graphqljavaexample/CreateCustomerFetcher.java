@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import graphql.schema.DataFetchingEnvironment;
-import graphql.schema.FieldDataFetcher;
+import graphql.schema.PropertyDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomerService;
 
 @Component
-public class CreateCustomerFetcher extends FieldDataFetcher<Customer> {
+public class CreateCustomerFetcher extends PropertyDataFetcher<Customer> {
 
 	@Autowired
 	private CustomerService customerService;
