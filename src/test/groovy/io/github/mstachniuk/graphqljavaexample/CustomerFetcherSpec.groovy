@@ -4,9 +4,11 @@ import graphql.GraphQL
 import graphql.schema.GraphQLSchema
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 @SpringBootTest
+@ContextConfiguration(classes = Main)
 class CustomerFetcherSpec extends Specification {
 
     @Autowired

@@ -1,5 +1,5 @@
 type Customer {
-    # fields with ! are requred
+    #fields with ! are requred
     id: ID!
     name: String!
     email: String!
