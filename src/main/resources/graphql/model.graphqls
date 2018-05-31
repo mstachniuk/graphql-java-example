@@ -1,5 +1,5 @@
 type Customer {
-    #fields with ! are requred
+    #fields with ! are required
     id: ID!
     name: String!
     email: String!
@@ -32,11 +32,16 @@ type Item {
     producer: Company
 }
 
+input CreateCustomerInput {
+    name: String
+    email: String
+}
+
 type Query {
     customer(id: String!): Customer!
     customers: [Customer]!
 }
 
 type Mutation {
-    createCustomer(name: String, email: String): Customer!
+    createCustomer(input: CreateCustomerInput): Customer!
 }

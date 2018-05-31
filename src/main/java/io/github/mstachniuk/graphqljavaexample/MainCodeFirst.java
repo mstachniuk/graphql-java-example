@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import graphql.schema.GraphQLArgument;
 import graphql.schema.GraphQLEnumType;
 import graphql.schema.GraphQLFieldDefinition;
+import graphql.schema.GraphQLInputObjectField;
+import graphql.schema.GraphQLInputObjectType;
+import graphql.schema.GraphQLInputType;
 import graphql.schema.GraphQLList;
 import graphql.schema.GraphQLNonNull;
 import graphql.schema.GraphQLObjectType;
@@ -67,7 +70,7 @@ public class MainCodeFirst {
 						.name("Customer")
 						.field(GraphQLFieldDefinition.newFieldDefinition()
 								.name("id")
-								.description("fields with ! are requred")
+								.description("fields with ! are required")
 								.type(new GraphQLNonNull(GraphQLID))
 								.build())
 						.field(GraphQLFieldDefinition.newFieldDefinition()
@@ -183,11 +186,18 @@ public class MainCodeFirst {
 		GraphQLFieldDefinition.Builder builder = GraphQLFieldDefinition.newFieldDefinition()
 				.name("createCustomer")
 				.argument(GraphQLArgument.newArgument()
-						.name("name")
-						.type(GraphQLString))
-				.argument(GraphQLArgument.newArgument()
-						.name("email")
-						.type(GraphQLString))
+						.name("input")
+						.type(GraphQLInputObjectType.newInputObject()
+								.name("CreateCustomerInput")
+								.field(GraphQLInputObjectField.newInputObjectField()
+										.name("name")
+										.type(GraphQLString)
+										.build())
+								.field(GraphQLInputObjectField.newInputObjectField()
+										.name("email")
+										.type(GraphQLString)
+										.build())
+								.build()))
 				.type(new GraphQLNonNull(new GraphQLTypeReference("Customer")))
 				.dataFetcher(createCustomerFetcher);
 		GraphQLObjectType.Builder mutation = GraphQLObjectType.newObject()

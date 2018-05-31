@@ -1,5 +1,7 @@
 package io.github.mstachniuk.graphqljavaexample;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +21,9 @@ public class CreateCustomerFetcher extends PropertyDataFetcher<Customer> {
 
 	@Override
 	public Customer get(DataFetchingEnvironment environment) {
-		String name = environment.getArgument("name");
-		String email = environment.getArgument("email");
+		Map<String, Object> input = environment.getArgument("input");
+		String name = (String) input.get("name");
+		String email = (String) input.get("email");
 		return customerService.create(name, email);
 	}
 }

@@ -192,7 +192,7 @@ Create Customer Request
 
 ```
 mutation {
-  createCustomer(name: "MyName", email: "me@my.com") {
+  createCustomer(input: {name: "MyName" email: "me@me.com"}) {
     id
     name
     email
