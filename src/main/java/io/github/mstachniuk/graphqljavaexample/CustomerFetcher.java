@@ -1,5 +1,7 @@
 package io.github.mstachniuk.graphqljavaexample;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +11,8 @@ import io.github.mstachniuk.graphqljavaexample.customer.CustomerService;
 
 @Component
 public class CustomerFetcher extends PropertyDataFetcher {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerFetcher.class);
 
     @Autowired
     private CustomerService customerService;
@@ -20,6 +24,7 @@ public class CustomerFetcher extends PropertyDataFetcher {
     @Override
     public Object get(DataFetchingEnvironment environment) {
         String id = environment.getArgument("id");
+        LOGGER.trace("CustomerFetcher get by {}", id);
         return customerService.getCustomerById(id);
     }
 }

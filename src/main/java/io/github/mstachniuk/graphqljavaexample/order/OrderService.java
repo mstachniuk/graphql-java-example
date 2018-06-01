@@ -13,7 +13,7 @@ import io.github.mstachniuk.graphqljavaexample.Status;
 @Service
 public class OrderService {
 
-	Map<String, List<Order>> db = new HashMap<>();
+	private Map<String, List<Order>> db = new HashMap<>();
 
 	public OrderService() {
 		db.put("2", Arrays.asList(new Order("55", Status.NEW),

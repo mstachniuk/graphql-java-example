@@ -2,6 +2,8 @@ package io.github.mstachniuk.graphqljavaexample;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,8 @@ import io.github.mstachniuk.graphqljavaexample.order.OrderService;
 
 @Component
 public class OrderDataFetcher extends PropertyDataFetcher<List<Order>> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderDataFetcher.class);
 
 	@Autowired
 	private OrderService orderService;
@@ -23,6 +27,7 @@ public class OrderDataFetcher extends PropertyDataFetcher<List<Order>> {
 	public List<Order> get(DataFetchingEnvironment environment) {
 		Customer source = environment.getSource();
 		String customerId = source.getId();
+		LOGGER.trace("OrderDataFetcher get by {}", customerId);
 		return orderService.getOrdersByCustomerId(customerId);
 	}
 }
