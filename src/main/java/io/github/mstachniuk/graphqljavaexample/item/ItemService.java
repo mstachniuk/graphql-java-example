@@ -28,6 +28,11 @@ public class ItemService {
 		Company bikeCompany = new Company("14", "Bike Company", "bike.bike");
 		Item bike = new Item("103", "Super Bike", 1, "1000", "USD", bikeCompany);
 		map.put("66", Arrays.asList(bike));
+
+		Company powerRocketCorporation = new Company("15", "Power Rocket Corporation", "prc.com");
+		Item powerRocket = new Item("104", "Power Rocket", 1, "250000", "USD", powerRocketCorporation);
+		Item rocketFuel = new Item("105", "Rocket Fuel", 5, "20000", "USD", powerRocketCorporation);
+		map.put("77", Arrays.asList(powerRocket, rocketFuel));
 	}
 
 	public List<Item> getItemsByOrderId(String orderId) {

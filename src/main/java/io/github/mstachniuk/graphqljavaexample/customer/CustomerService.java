@@ -18,6 +18,7 @@ public class CustomerService {
 
 	public CustomerService() {
 		db.put("2", new Customer("2", "name", "a@b.com"));
+		db.put("3", new Customer("3", "John Doe", "john@doe.com"));
 	}
 
 	public Customer getCustomerById(String id) {
