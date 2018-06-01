@@ -35,6 +35,12 @@ type Item {
 input CreateCustomerInput {
     name: String
     email: String
+    clientMutationId: String!
+}
+
+type CreateCustomerPayload {
+    customer: Customer
+    clientMutationId: String!
 }
 
 type Query {
@@ -43,5 +49,5 @@ type Query {
 }
 
 type Mutation {
-    createCustomer(input: CreateCustomerInput): Customer!
+    createCustomer(input: CreateCustomerInput): CreateCustomerPayload!
 }

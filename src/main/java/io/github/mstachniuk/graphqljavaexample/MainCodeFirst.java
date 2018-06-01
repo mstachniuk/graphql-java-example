@@ -15,7 +15,6 @@ import graphql.schema.GraphQLEnumType;
 import graphql.schema.GraphQLFieldDefinition;
 import graphql.schema.GraphQLInputObjectField;
 import graphql.schema.GraphQLInputObjectType;
-import graphql.schema.GraphQLInputType;
 import graphql.schema.GraphQLList;
 import graphql.schema.GraphQLNonNull;
 import graphql.schema.GraphQLObjectType;
@@ -197,8 +196,22 @@ public class MainCodeFirst {
 										.name("email")
 										.type(GraphQLString)
 										.build())
+								.field(GraphQLInputObjectField.newInputObjectField()
+										.name("clientMutationId")
+										.type(new GraphQLNonNull(GraphQLString))
+										.build())
 								.build()))
-				.type(new GraphQLNonNull(new GraphQLTypeReference("Customer")))
+				.type(new GraphQLNonNull(GraphQLObjectType.newObject()
+						.name("CreateCustomerPayload")
+						.field(GraphQLFieldDefinition.newFieldDefinition()
+								.name("customer")
+								.type(new GraphQLTypeReference("Customer"))
+								.build())
+						.field(GraphQLFieldDefinition.newFieldDefinition()
+								.name("clientMutationId")
+								.type(new GraphQLNonNull(GraphQLString))
+								.build())
+						.build()))
 				.dataFetcher(createCustomerFetcher);
 		GraphQLObjectType.Builder mutation = GraphQLObjectType.newObject()
 				.name("Mutation")
