@@ -10,7 +10,7 @@ import graphql.schema.PropertyDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomerService;
 
 @Component
-public class CustomerFetcher extends PropertyDataFetcher {
+public class CustomerFetcher extends PropertyDataFetcher<Customer> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerFetcher.class);
 
@@ -18,13 +18,13 @@ public class CustomerFetcher extends PropertyDataFetcher {
     private CustomerService customerService;
 
     public CustomerFetcher() {
-        super("customers");
+        super("customer");
     }
 
     @Override
-    public Object get(DataFetchingEnvironment environment) {
+    public Customer get(DataFetchingEnvironment environment) {
         String id = environment.getArgument("id");
-        LOGGER.trace("CustomerFetcher get by {}", id);
+	    LOGGER.trace("CustomerFetcher get by {}", id);
         return customerService.getCustomerById(id);
     }
 }
