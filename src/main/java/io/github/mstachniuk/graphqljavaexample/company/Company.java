@@ -1,4 +1,4 @@
-package io.github.mstachniuk.graphqljavaexample;
+package io.github.mstachniuk.graphqljavaexample.company;
 
 public class Company {
     private String id;

@@ -1,11 +1,11 @@
-package io.github.mstachniuk.graphqljavaexample;
+package io.github.mstachniuk.graphqljavaexample.company;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.PropertyDataFetcher;
-import io.github.mstachniuk.graphqljavaexample.company.CompanyService;
+import io.github.mstachniuk.graphqljavaexample.customer.Customer;
 
 @Component
 public class CompanyDataFetcher extends PropertyDataFetcher<Company> {

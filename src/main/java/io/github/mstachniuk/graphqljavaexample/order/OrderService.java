@@ -7,9 +7,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import io.github.mstachniuk.graphqljavaexample.Order;
-import io.github.mstachniuk.graphqljavaexample.Status;
-
 @Service
 public class OrderService {
 

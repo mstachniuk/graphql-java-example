@@ -21,6 +21,12 @@ import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.GraphQLType;
 import graphql.schema.GraphQLTypeReference;
+import io.github.mstachniuk.graphqljavaexample.company.CompanyDataFetcher;
+import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomerFetcher;
+import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
+import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
+import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
+import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
 
 @SpringBootApplication
 public class MainCodeFirst {

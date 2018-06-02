@@ -9,8 +9,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
-import io.github.mstachniuk.graphqljavaexample.Company;
-import io.github.mstachniuk.graphqljavaexample.Item;
+import io.github.mstachniuk.graphqljavaexample.company.Company;
 
 @Service
 public class ItemService {

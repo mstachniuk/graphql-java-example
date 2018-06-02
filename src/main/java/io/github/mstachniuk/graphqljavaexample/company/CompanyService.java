@@ -2,8 +2,6 @@ package io.github.mstachniuk.graphqljavaexample.company;
 
 import org.springframework.stereotype.Service;
 
-import io.github.mstachniuk.graphqljavaexample.Company;
-
 @Service
 public class CompanyService {
 

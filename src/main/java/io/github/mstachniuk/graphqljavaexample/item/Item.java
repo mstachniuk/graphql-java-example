@@ -1,4 +1,6 @@
-package io.github.mstachniuk.graphqljavaexample;
+package io.github.mstachniuk.graphqljavaexample.item;
+
+import io.github.mstachniuk.graphqljavaexample.company.Company;
 
 public class Item {
 	private final String id;

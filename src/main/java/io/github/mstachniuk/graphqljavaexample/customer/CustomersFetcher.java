@@ -1,4 +1,4 @@
-package io.github.mstachniuk.graphqljavaexample;
+package io.github.mstachniuk.graphqljavaexample.customer;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.PropertyDataFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CustomerService;
 
 @Component
 public class CustomersFetcher extends PropertyDataFetcher<List<Customer>> {

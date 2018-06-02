@@ -1,4 +1,4 @@
-package io.github.mstachniuk.graphqljavaexample;
+package io.github.mstachniuk.graphqljavaexample.order;
 
 public class Order {
 	private final String id;

@@ -8,8 +8,6 @@ import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
-import io.github.mstachniuk.graphqljavaexample.Customer;
-
 @Service
 public class CustomerService {
 

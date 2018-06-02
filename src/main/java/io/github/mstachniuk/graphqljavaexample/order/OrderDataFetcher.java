@@ -1,4 +1,4 @@
-package io.github.mstachniuk.graphqljavaexample;
+package io.github.mstachniuk.graphqljavaexample.order;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.PropertyDataFetcher;
-import io.github.mstachniuk.graphqljavaexample.order.OrderService;
+import io.github.mstachniuk.graphqljavaexample.customer.Customer;
 
 @Component
 public class OrderDataFetcher extends PropertyDataFetcher<List<Order>> {
