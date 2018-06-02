@@ -192,10 +192,13 @@ Create Customer Request
 
 ```
 mutation {
-  createCustomer(input: {name: "MyName" email: "me@me.com"}) {
-    id
-    name
-    email
+  createCustomer(input: {name: "MyName" email: "me@me.com" clientMutationId: "123"}) {
+    customer {
+      id
+      name
+      email
+    }
+    clientMutationId
   }
 }
 ```
@@ -206,9 +209,12 @@ Response
 {
   "data": {
     "createCustomer": {
-      "id": "19",
-      "name": "MyName",
-      "email": "me@my.com"
+      "customer": {
+        "id": "570",
+        "name": "MyName",
+        "email": "me@me.com"
+      },
+      "clientMutationId": "123"
     }
   }
 }
