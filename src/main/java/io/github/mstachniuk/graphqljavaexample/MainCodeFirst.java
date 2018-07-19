@@ -23,6 +23,7 @@ import graphql.schema.GraphQLType;
 import graphql.schema.GraphQLTypeReference;
 import io.github.mstachniuk.graphqljavaexample.company.CompanyDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomerFetcher;
+import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
@@ -43,6 +44,8 @@ public class MainCodeFirst {
 	private ItemDataFetcher itemDataFetcher;
 	@Autowired
 	private CreateCustomerFetcher createCustomerFetcher;
+	@Autowired
+	private CreateCustomersFetcher createCustomersFetcher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MainCodeFirst.class, args);
@@ -188,7 +191,7 @@ public class MainCodeFirst {
 	}
 
 	private GraphQLObjectType buildMutationType() {
-		GraphQLFieldDefinition.Builder builder = GraphQLFieldDefinition.newFieldDefinition()
+		GraphQLFieldDefinition.Builder createCustomerBuilder = GraphQLFieldDefinition.newFieldDefinition()
 				.name("createCustomer")
 				.argument(GraphQLArgument.newArgument()
 						.name("input")
@@ -219,9 +222,47 @@ public class MainCodeFirst {
 								.build())
 						.build()))
 				.dataFetcher(createCustomerFetcher);
+		GraphQLFieldDefinition.Builder createCustomersBuilder = GraphQLFieldDefinition.newFieldDefinition()
+				.name("createCustomers")
+				.argument(GraphQLArgument.newArgument()
+						.name("input")
+						.type(GraphQLInputObjectType.newInputObject()
+								.name("CreateCustomersInput")
+								.field(GraphQLInputObjectField.newInputObjectField()
+										.name("customers")
+										.type(new GraphQLList(GraphQLInputObjectType.newInputObject()
+												.name("CreateCustomer")
+												.field(GraphQLInputObjectField.newInputObjectField()
+														.name("name")
+														.type(GraphQLString)
+														.build())
+												.field(GraphQLInputObjectField.newInputObjectField()
+														.name("email")
+														.type(GraphQLString)
+														.build())
+												.build()))
+										.build())
+								.field(GraphQLInputObjectField.newInputObjectField()
+										.name("clientMutationId")
+										.type(new GraphQLNonNull(GraphQLString))
+										.build())
+								.build()))
+				.type(new GraphQLNonNull(GraphQLObjectType.newObject()
+						.name("CreateCustomersPayload")
+						.field(GraphQLFieldDefinition.newFieldDefinition()
+								.name("customers")
+								.type(new GraphQLList(new GraphQLTypeReference("Customer")))
+								.build())
+						.field(GraphQLFieldDefinition.newFieldDefinition()
+								.name("clientMutationId")
+								.type(new GraphQLNonNull(GraphQLString))
+								.build())
+						.build()))
+				.dataFetcher(createCustomersFetcher);
 		GraphQLObjectType.Builder mutation = GraphQLObjectType.newObject()
 				.name("Mutation")
-				.field(builder);
+				.field(createCustomerBuilder)
+				.field(createCustomersBuilder);
 		return mutation.build();
 	}
 }

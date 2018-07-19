@@ -15,6 +15,7 @@ import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import io.github.mstachniuk.graphqljavaexample.company.CompanyDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomerFetcher;
+import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
@@ -35,6 +36,8 @@ public class Main {
 	private ItemDataFetcher itemDataFetcher;
 	@Autowired
 	private CreateCustomerFetcher createCustomerFetcher;
+	@Autowired
+	private CreateCustomersFetcher createCustomersFetcher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
@@ -61,6 +64,8 @@ public class Main {
 						builder.dataFetcher("items", itemDataFetcher))
 				.type("Mutation", builder ->
 						builder.dataFetcher("createCustomer", createCustomerFetcher))
+				.type("Mutation", builder ->
+						builder.dataFetcher("createCustomers", createCustomersFetcher))
 				.build();
 		return schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
 	}

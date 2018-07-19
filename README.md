@@ -10,7 +10,9 @@
 
 go to: http://localhost:8000/graphiql
 
-First request
+## Get Customer by id 
+
+Request 
 
 ```
 {
@@ -114,7 +116,9 @@ Response
 }
 ```
 
-Get all customers
+Now try yourself to remove some lines from request.
+
+## Get all Customers
 
 Request
 
@@ -151,12 +155,11 @@ Response
 
 ## Variables
 
-
-Request:
+Get Customer by ID Request:
 
 ```
-query queryName($customerID: String) {
-  customers(id: $customerID) {
+query queryName($customerID: String!) {
+  customer(id: $customerID) {
     id
     name
     email
@@ -186,7 +189,7 @@ Response
 }
 ```
 
-## Create
+## Create Customer
 
 Create Customer Request
 
@@ -214,6 +217,125 @@ Response
         "name": "MyName",
         "email": "me@me.com"
       },
+      "clientMutationId": "123"
+    }
+  }
+}
+```
+
+## Create Customers 1
+
+Create Customers Request using createCustomer mutation. 
+This solution use previous mutation + aliases.
+
+```
+mutation {
+  cust1: createCustomer(input: {
+    name: "a"
+    email: "a@a.a"
+    clientMutationId: "123"
+  }) {
+    customer {
+      id
+      name
+      email
+    }
+    clientMutationId
+  }
+  cust2: createCustomer(input: {
+    name: "b"
+    email: "b@b.b"
+    clientMutationId: "123"
+  }) {
+    customer {
+      id
+      name
+      email
+    }
+    clientMutationId
+  }
+}
+```
+
+Response
+
+```
+{
+  "data": {
+    "cust1": {
+      "customer": {
+        "id": "807",
+        "name": "a",
+        "email": "a@a.a"
+      },
+      "clientMutationId": "123"
+    },
+    "cust2": {
+      "customer": {
+        "id": "824",
+        "name": "b",
+        "email": "b@b.b"
+      },
+      "clientMutationId": "123"
+    }
+  }
+}
+```
+
+## Create Customers 2
+
+Create Customers Request using array in input - another mutation
+
+```
+mutation mut1($cust: [CreateCustomer]){
+  createCustomers(input: {
+    customers: $cust, 
+    clientMutationId: "123"}) {
+    customers {
+      id
+      name
+      email
+    }
+    clientMutationId
+  }
+}
+```
+
+Query Variables:
+
+```
+{
+  "cust": [
+    {
+      "name": "c",
+      "email": "c@c.c"
+    },
+    {
+      "name": "d",
+      "email": "d@d.d"
+    }
+  ]
+}
+```
+
+Response
+
+```
+{
+  "data": {
+    "createCustomers": {
+      "customers": [
+        {
+          "id": "97",
+          "name": "c",
+          "email": "c@c.c"
+        },
+        {
+          "id": "531",
+          "name": "d",
+          "email": "d@d.c"
+        }
+      ],
       "clientMutationId": "123"
     }
   }
