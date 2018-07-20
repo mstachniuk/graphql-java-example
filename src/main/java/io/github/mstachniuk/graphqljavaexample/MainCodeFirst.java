@@ -78,7 +78,7 @@ public class MainCodeFirst {
 						.name("Customer")
 						.field(GraphQLFieldDefinition.newFieldDefinition()
 								.name("id")
-								.description("fields with ! are required")
+								.description("fields with ! are not null")
 								.type(new GraphQLNonNull(GraphQLID))
 								.build())
 						.field(GraphQLFieldDefinition.newFieldDefinition()

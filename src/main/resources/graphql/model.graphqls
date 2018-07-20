@@ -1,5 +1,5 @@
 type Customer {
-    #fields with ! are required
+    #fields with ! are not null
     id: ID!
     name: String!
     email: String!
@@ -23,7 +23,7 @@ enum Status {
     NEW, CANCELED, DONE
 }
 
-type Item {
+type Item @java(package:"com.distelli.posts") {
     id: ID!
     name: String!
     amount: Int
