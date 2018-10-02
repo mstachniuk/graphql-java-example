@@ -58,6 +58,16 @@ type CreateCustomersPayload {
     clientMutationId: String!
 }
 
+input DeleteCustomerInput {
+    id: ID!
+    clientMutationId: String!
+}
+
+type DeleteCustomerPayload {
+    customer: Customer
+    clientMutationId: String!
+}
+
 type Query {
     customer(id: String!): Customer!
     customers: [Customer]!
@@ -66,4 +76,5 @@ type Query {
 type Mutation {
     createCustomer(input: CreateCustomerInput): CreateCustomerPayload!
     createCustomers(input: CreateCustomersInput): CreateCustomersPayload!
+    deleteCustomer(input: DeleteCustomerInput): DeleteCustomerPayload!
 }

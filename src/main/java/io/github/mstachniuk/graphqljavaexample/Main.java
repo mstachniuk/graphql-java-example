@@ -2,6 +2,7 @@ package io.github.mstachniuk.graphqljavaexample;
 
 import java.io.File;
 
+import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +39,8 @@ public class Main {
 	private CreateCustomerFetcher createCustomerFetcher;
 	@Autowired
 	private CreateCustomersFetcher createCustomersFetcher;
+	@Autowired
+	private DataFetcher deleteCustomerFetcher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
@@ -66,6 +69,8 @@ public class Main {
 						builder.dataFetcher("createCustomer", createCustomerFetcher))
 				.type("Mutation", builder ->
 						builder.dataFetcher("createCustomers", createCustomersFetcher))
+				.type("Mutation", builder ->
+						builder.dataFetcher("deleteCustomer", deleteCustomerFetcher))
 				.build();
 		return schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
 	}

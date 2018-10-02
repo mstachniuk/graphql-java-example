@@ -40,4 +40,8 @@ public class CustomerService {
 	public List<Customer> getAll() {
 		return new ArrayList<>(db.values());
 	}
+
+	public Customer delete(String customerId) {
+		return db.remove(customerId);
+	}
 }
