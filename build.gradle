@@ -33,3 +33,7 @@ dependencies {
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 
 }
+
+bootJar {
+    mainClassName = 'io.github.mstachniuk.graphqljavaexample.Main'
+}
