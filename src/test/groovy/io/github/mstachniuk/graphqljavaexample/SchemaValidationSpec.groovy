@@ -3,6 +3,7 @@ package io.github.mstachniuk.graphqljavaexample
 import graphql.ExecutionResult
 import graphql.GraphQL
 import graphql.schema.GraphQLSchema
+import org.skyscreamer.jsonassert.JSONAssert
 import org.springframework.boot.SpringApplication
 import spock.lang.Specification
 
@@ -25,6 +26,8 @@ class SchemaValidationSpec extends Specification {
 		ExecutionResult codeFirstResult = graphQLCodeFirst.execute(INTROSPECTION_QUERY)
 
 		then:
-		prettyPrint(toJson(schemaFirstResult.data)) == prettyPrint(toJson(codeFirstResult.data))
+		// Uncomment for seeing  differences in better way
+//		prettyPrint(toJson(codeFirstResult.data)) == prettyPrint(toJson(schemaFirstResult.data))
+		JSONAssert.assertEquals(toJson(codeFirstResult.data), toJson(schemaFirstResult.data), false)
 	}
 }
