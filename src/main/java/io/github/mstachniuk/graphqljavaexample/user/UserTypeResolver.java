@@ -13,7 +13,7 @@ public class UserTypeResolver implements TypeResolver {
 		} else if (javaObject instanceof Moderator) {
 			return env.getSchema().getObjectType("Moderator");
 		} else {
-			return env.getSchema().getObjectType("UNKNOWN");
+			return env.getSchema().getObjectType("Unknownnnnnn");
 		}
 	}
 }

@@ -86,13 +86,6 @@ interface User {
     email: String!
 }
 
-type Moderator implements User {
-    id: ID!
-    name: String!
-    email: String!
-    permissions: [String]
-}
-
 type Admin implements User {
     id: ID!
     name: String!
@@ -100,3 +93,9 @@ type Admin implements User {
     superAdmin: Boolean!
 }
 
+type Moderator implements User {
+    id: ID!
+    name: String!
+    email: String!
+    permissions: [String]
+}
