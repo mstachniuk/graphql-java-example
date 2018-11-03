@@ -1,5 +1,7 @@
 package io.github.mstachniuk.graphqljavaexample;
 
+import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
+
 import java.io.File;
 
 import graphql.schema.DataFetcher;
@@ -21,6 +23,8 @@ import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
+import io.github.mstachniuk.graphqljavaexample.user.UserTypeResolver;
+import io.github.mstachniuk.graphqljavaexample.user.UsersFetcher;
 
 @SpringBootApplication
 public class Main {
@@ -41,6 +45,8 @@ public class Main {
 	private CreateCustomersFetcher createCustomersFetcher;
 	@Autowired
 	private DataFetcher deleteCustomerFetcher;
+	@Autowired
+	private UsersFetcher usersFetcher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
@@ -71,6 +77,11 @@ public class Main {
 						builder.dataFetcher("createCustomers", createCustomersFetcher))
 				.type("Mutation", builder ->
 						builder.dataFetcher("deleteCustomer", deleteCustomerFetcher))
+				.type(newTypeWiring("User")
+						.typeResolver(new UserTypeResolver())
+						.build())
+				.type("Query", builder ->
+						builder.dataFetcher("users", usersFetcher))
 				.build();
 		return schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
 	}

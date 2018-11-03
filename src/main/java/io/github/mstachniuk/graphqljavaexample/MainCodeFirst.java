@@ -8,6 +8,8 @@ import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
+import io.github.mstachniuk.graphqljavaexample.user.UsersFetcher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -35,6 +37,8 @@ public class MainCodeFirst {
     private CreateCustomersFetcher createCustomersFetcher;
     @Autowired
     private DataFetcher deleteCustomerFetcher;
+	@Autowired
+	private UsersFetcher usersFetcher;
 
     public static void main(String[] args) {
         SpringApplication.run(MainCodeFirst.class, args);
@@ -53,11 +57,12 @@ public class MainCodeFirst {
         GraphQLObjectType.Builder builder = GraphQLObjectType.newObject()
                 .name("Query")
                 .field(customerDefinition())
-                .field(buildCustomersType());
+                .field(customersDefinition())
+		        .field(usersDefinition());
         return builder.build();
     }
 
-    private GraphQLFieldDefinition customerDefinition() {
+	private GraphQLFieldDefinition customerDefinition() {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .name("customer")
                 .argument(GraphQLArgument.newArgument()
@@ -171,7 +176,7 @@ public class MainCodeFirst {
     }
 
 
-    private GraphQLFieldDefinition buildCustomersType() {
+    private GraphQLFieldDefinition customersDefinition() {
         GraphQLFieldDefinition.Builder builder = GraphQLFieldDefinition.newFieldDefinition()
                 .name("customers")
                 .type(new GraphQLNonNull(new GraphQLList(new GraphQLTypeReference("Customer"))))
@@ -294,4 +299,24 @@ public class MainCodeFirst {
                         .build()))
                 .dataFetcher(deleteCustomerFetcher);
     }
+
+	private GraphQLFieldDefinition usersDefinition() {
+    	return GraphQLFieldDefinition.newFieldDefinition()
+			    .name("users")
+			    .type(GraphQLInterfaceType.newInterface()
+					    .field(GraphQLFieldDefinition.newFieldDefinition()
+							    .name("id")
+							    .type(new GraphQLNonNull(GraphQLID))
+							    .build())
+					    .field(GraphQLFieldDefinition.newFieldDefinition()
+							    .name("name")
+							    .type(new GraphQLNonNull(GraphQLString))
+							    .build())
+					    .field(GraphQLFieldDefinition.newFieldDefinition()
+							    .name("email")
+							    .type(new GraphQLNonNull(GraphQLString))
+							    .build()))
+			    .dataFetcher(usersFetcher)
+			    .build();
+	}
 }

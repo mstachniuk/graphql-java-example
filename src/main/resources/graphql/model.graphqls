@@ -71,6 +71,7 @@ type DeleteCustomerPayload {
 type Query {
     customer(id: String!): Customer!
     customers: [Customer]!
+    users: [User]
 }
 
 type Mutation {
@@ -78,3 +79,24 @@ type Mutation {
     createCustomers(input: CreateCustomersInput): CreateCustomersPayload!
     deleteCustomer(input: DeleteCustomerInput): DeleteCustomerPayload!
 }
+
+interface User {
+    id: ID!
+    name: String!
+    email: String!
+}
+
+type Moderator implements User {
+    id: ID!
+    name: String!
+    email: String!
+    permissions: [String]
+}
+
+type Admin implements User {
+    id: ID!
+    name: String!
+    email: String!
+    superAdmin: Boolean!
+}
+
