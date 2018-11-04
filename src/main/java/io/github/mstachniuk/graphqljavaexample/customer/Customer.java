@@ -1,6 +1,8 @@
 package io.github.mstachniuk.graphqljavaexample.customer;
 
-public class Customer {
+import io.github.mstachniuk.graphqljavaexample.search.SearchResult;
+
+public class Customer implements SearchResult {
     private String id;
     private String name;
     private String email;

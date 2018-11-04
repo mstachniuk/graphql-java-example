@@ -1,8 +1,10 @@
 package io.github.mstachniuk.graphqljavaexample.user;
 
+import io.github.mstachniuk.graphqljavaexample.search.SearchResult;
+
 import java.util.List;
 
-public class Moderator extends AbstractUser {
+public class Moderator extends AbstractUser implements SearchResult {
 
 	private List<String> permission;
 

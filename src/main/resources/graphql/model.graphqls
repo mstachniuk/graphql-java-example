@@ -72,6 +72,7 @@ type Query {
     customer(id: String!): Customer!
     customers: [Customer]!
     users: [User]
+    search(input: String): [SearchResult]
 }
 
 type Mutation {
@@ -99,3 +100,5 @@ type Moderator implements User {
     email: String!
     permissions: [String]
 }
+
+union SearchResult = Customer | Admin | Moderator
