@@ -6,7 +6,6 @@ import graphql.schema.TypeResolver;
 import io.github.mstachniuk.graphqljavaexample.customer.Customer;
 import io.github.mstachniuk.graphqljavaexample.user.Admin;
 import io.github.mstachniuk.graphqljavaexample.user.Moderator;
-import io.github.mstachniuk.graphqljavaexample.user.User;
 
 public class SearchResultResolver implements TypeResolver {
     @Override

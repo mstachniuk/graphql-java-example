@@ -6,18 +6,18 @@ import java.util.List;
 
 public class Moderator extends AbstractUser implements SearchResult {
 
-	private List<String> permission;
+	private List<String> permissions;
 
-	public Moderator(String id, String name, String email, List<String> permission) {
+	public Moderator(String id, String name, String email, List<String> permissions) {
 		super(id, name, email);
-		this.permission = permission;
+		this.permissions = permissions;
 	}
 
-	public List<String> getPermission() {
-		return permission;
+	public List<String> getPermissions() {
+		return permissions;
 	}
 
-	public void setPermission(List<String> permission) {
-		this.permission = permission;
+	public void setPermissions(List<String> permissions) {
+		this.permissions = permissions;
 	}
 }
