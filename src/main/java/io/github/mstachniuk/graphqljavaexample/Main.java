@@ -5,6 +5,8 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 import java.io.File;
 
 import graphql.schema.DataFetcher;
+import io.github.mstachniuk.graphqljavaexample.search.SearchFetcher;
+import io.github.mstachniuk.graphqljavaexample.search.SearchResultResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -47,6 +49,8 @@ public class Main {
 	private DataFetcher deleteCustomerFetcher;
 	@Autowired
 	private UsersFetcher usersFetcher;
+	@Autowired
+	private SearchFetcher searchFetcher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
@@ -82,6 +86,11 @@ public class Main {
 						.build())
 				.type("Query", builder ->
 						builder.dataFetcher("users", usersFetcher))
+				.type(newTypeWiring("SearchResult")
+						.typeResolver(new SearchResultResolver())
+						.build())
+				.type("Query", builder ->
+						builder.dataFetcher("search", searchFetcher))
 				.build();
 		return schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
 	}

@@ -1,6 +1,8 @@
 package io.github.mstachniuk.graphqljavaexample.user;
 
-public class Admin extends AbstractUser {
+import io.github.mstachniuk.graphqljavaexample.search.SearchResult;
+
+public class Admin extends AbstractUser implements SearchResult {
 
 	private boolean superAdmin;
 

@@ -8,6 +8,8 @@ import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
+import io.github.mstachniuk.graphqljavaexample.search.SearchFetcher;
+import io.github.mstachniuk.graphqljavaexample.search.SearchResultResolver;
 import io.github.mstachniuk.graphqljavaexample.user.UserTypeResolver;
 import io.github.mstachniuk.graphqljavaexample.user.UsersFetcher;
 
@@ -19,7 +21,6 @@ import org.springframework.context.annotation.Bean;
 
 import static graphql.Scalars.*;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -44,6 +45,8 @@ public class MainCodeFirst {
 	private DataFetcher deleteCustomerFetcher;
 	@Autowired
 	private UsersFetcher usersFetcher;
+	@Autowired
+	private SearchFetcher searchFetcher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MainCodeFirst.class, args);
@@ -64,8 +67,8 @@ public class MainCodeFirst {
 				.name("Query")
 				.field(customerDefinition())
 				.field(customersDefinition())
-				.field(usersDefinition());
-//				.definition(userImplementationDefinitions().getDefinition());
+				.field(usersDefinition())
+				.field(searchDefinition());
 		return builder.build();
 	}
 
@@ -381,5 +384,23 @@ public class MainCodeFirst {
 		result.add(admin);
 		result.add(moderator);
 		return result;
+	}
+
+	private GraphQLFieldDefinition searchDefinition() {
+		return GraphQLFieldDefinition.newFieldDefinition()
+				.name("search")
+				.argument(GraphQLArgument.newArgument()
+						.name("input")
+						.type(GraphQLString)
+						.build())
+				.type(new GraphQLList(GraphQLUnionType.newUnionType()
+						.name("SearchResult")
+						.possibleType(new GraphQLTypeReference("Customer"))
+						.possibleType(new GraphQLTypeReference("Admin"))
+						.possibleType(new GraphQLTypeReference("Moderator"))
+						.typeResolver(new SearchResultResolver())
+						.build()))
+				.dataFetcher(usersFetcher)
+				.build();
 	}
 }
