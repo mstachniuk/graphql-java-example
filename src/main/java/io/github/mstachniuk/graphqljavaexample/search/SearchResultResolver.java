@@ -18,7 +18,7 @@ public class SearchResultResolver implements TypeResolver {
         } else if (javaObject instanceof Moderator) {
             return env.getSchema().getObjectType("Moderator");
         } else {
-            return env.getSchema().getObjectType("Unknownnnn");
+            throw new RuntimeException("Unknown type " + javaObject.getClass().getName());
         }
     }
 }
