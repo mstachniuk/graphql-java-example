@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 @SpringBootTest
-@ContextConfiguration(classes = Main)
+@ContextConfiguration(classes = MainSchemaFirst)
 class CustomerFetcherSpec extends Specification {
 
     @Autowired

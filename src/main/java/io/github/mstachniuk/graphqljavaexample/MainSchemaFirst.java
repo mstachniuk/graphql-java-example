@@ -1,7 +1,7 @@
 package io.github.mstachniuk.graphqljavaexample;
 
 import graphql.schema.GraphQLSchema;
-import io.github.mstachniuk.graphqljavaexample.graphql.codefirst.CodeFirstConfiguration;
+import io.github.mstachniuk.graphqljavaexample.graphql.schemafirst.SchemaFirstConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -9,18 +9,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class MainCodeFirst {
+public class MainSchemaFirst {
 
 	@Autowired
-	private CodeFirstConfiguration codeFirstConfiguration;
+	private SchemaFirstConfiguration schemaFirstConfiguration;
 
 	public static void main(String[] args) {
-		SpringApplication.run(MainCodeFirst.class, args);
+		SpringApplication.run(MainSchemaFirst.class, args);
 	}
 
 	@Bean
-	@Qualifier("CodeFirst")
+	@Qualifier("SchemaFirst")
 	public GraphQLSchema schema() {
-		return codeFirstConfiguration.schema();
+		return schemaFirstConfiguration.schema();
 	}
 }
