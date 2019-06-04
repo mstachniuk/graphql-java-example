@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
-@SpringBootTest
+// workaround for https://github.com/graphql-java-kickstart/graphql-spring-boot/issues/113
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = MainSchemaFirst)
 class CustomerFetcherSpec extends Specification {
 

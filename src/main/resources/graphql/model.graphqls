@@ -23,7 +23,7 @@ enum Status {
     NEW, CANCELED, DONE
 }
 
-type Item @java(package:"com.distelli.posts") {
+type Item {
     id: ID!
     name: String!
     amount: Int

@@ -26,8 +26,8 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'com.graphql-java:graphql-spring-boot-starter:4.0.0'
-    compile 'com.graphql-java:graphiql-spring-boot-starter:4.0.0'
+    compile 'com.graphql-java-kickstart:graphql-spring-boot-starter:5.2'
+    compile 'com.graphql-java-kickstart:graphiql-spring-boot-starter:5.2'
     testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
     testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4'
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
@@ -35,5 +35,5 @@ dependencies {
 }
 
 bootJar {
-    mainClassName = 'io.github.mstachniuk.graphqljavaexample.Main'
+    mainClassName = 'io.github.mstachniuk.graphqljavaexample.MainCodeFirst'
 }
