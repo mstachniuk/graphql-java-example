@@ -9,12 +9,12 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.PropertyDataFetcher;
 
 @Component
-public class UsersFetcher extends PropertyDataFetcher<List<User>> {
+public class UsersDataFetcher extends PropertyDataFetcher<List<User>> {
 
 	@Autowired
 	private UserService userService;
 
-	public UsersFetcher() {
+	public UsersDataFetcher() {
 		super("users");
 	}
 

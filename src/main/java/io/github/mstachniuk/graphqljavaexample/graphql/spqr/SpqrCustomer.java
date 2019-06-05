@@ -25,7 +25,6 @@ public class SpqrCustomer {
         return name;
     }
 
-    @GraphQLQuery
     public String getEmail() {
         return email;
     }

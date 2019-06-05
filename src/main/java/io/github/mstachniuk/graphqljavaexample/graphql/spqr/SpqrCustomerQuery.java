@@ -7,6 +7,9 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class SpqrCustomerQuery {
 
@@ -17,6 +20,13 @@ public class SpqrCustomerQuery {
     public SpqrCustomer getCustomerById(@GraphQLArgument(name = "id") String id) {
         Customer customer = customerService.getCustomerById(id);
         return toSpqr(customer);
+    }
+
+    @GraphQLQuery(name = "customers")
+    public List<SpqrCustomer> getAll() {
+        return customerService.getAll().stream()
+                .map(this::toSpqr)
+                .collect(Collectors.toList());
     }
 
     private SpqrCustomer toSpqr(Customer customer) {

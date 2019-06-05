@@ -16,7 +16,7 @@ import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.search.SearchFetcher;
 import io.github.mstachniuk.graphqljavaexample.search.SearchResultResolver;
 import io.github.mstachniuk.graphqljavaexample.user.UserTypeResolver;
-import io.github.mstachniuk.graphqljavaexample.user.UsersFetcher;
+import io.github.mstachniuk.graphqljavaexample.user.UsersDataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +44,7 @@ public class SchemaFirstConfiguration {
     @Autowired
     private DataFetcher deleteCustomerFetcher;
     @Autowired
-    private UsersFetcher usersFetcher;
+    private UsersDataFetcher usersDataFetcher;
     @Autowired
     private SearchFetcher searchFetcher;
 
@@ -75,7 +75,7 @@ public class SchemaFirstConfiguration {
                         .typeResolver(new UserTypeResolver())
                         .build())
                 .type("Query", builder ->
-                        builder.dataFetcher("users", usersFetcher))
+                        builder.dataFetcher("users", usersDataFetcher))
                 .type(newTypeWiring("SearchResult")
                         .typeResolver(new SearchResultResolver())
                         .build())
