@@ -18,4 +18,28 @@ public class Item {
 		this.currency = currency;
 		this.producer = producer;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public Company getProducer() {
+		return producer;
+	}
 }
