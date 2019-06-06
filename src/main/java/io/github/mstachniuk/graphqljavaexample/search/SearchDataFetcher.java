@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SearchFetcher extends PropertyDataFetcher<List<SearchResult>> {
+public class SearchDataFetcher extends PropertyDataFetcher<List<SearchResult>> {
 
     @Autowired
     private CustomerService customerService;
     @Autowired
     private UserService userService;
 
-    public SearchFetcher() {
+    public SearchDataFetcher() {
         super("search");
     }
 

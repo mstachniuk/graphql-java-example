@@ -8,7 +8,7 @@ import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
-import io.github.mstachniuk.graphqljavaexample.search.SearchFetcher;
+import io.github.mstachniuk.graphqljavaexample.search.SearchDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.search.SearchResultResolver;
 import io.github.mstachniuk.graphqljavaexample.user.UserTypeResolver;
 import io.github.mstachniuk.graphqljavaexample.user.UsersDataFetcher;
@@ -43,7 +43,7 @@ public class CodeFirstConfiguration {
     @Autowired
     private UsersDataFetcher usersDataFetcher;
     @Autowired
-    private SearchFetcher searchFetcher;
+    private SearchDataFetcher searchDataFetcher;
 
     public GraphQLSchema schema() {
         return GraphQLSchema.newSchema()
@@ -391,7 +391,7 @@ public class CodeFirstConfiguration {
                         .possibleType(new GraphQLTypeReference("Moderator"))
                         .typeResolver(new SearchResultResolver())
                         .build()))
-                .dataFetcher(searchFetcher)
+                .dataFetcher(searchDataFetcher)
                 .build();
     }
 }

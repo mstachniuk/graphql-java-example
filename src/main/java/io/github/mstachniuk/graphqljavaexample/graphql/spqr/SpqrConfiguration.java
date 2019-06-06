@@ -18,11 +18,18 @@ public class SpqrConfiguration {
     private SpqrItemQuery spqrItemQuery;
     @Autowired
     private SpqrUserQuery spqrUserQuery;
+    @Autowired
+    private SpqrSearchQuery spqrSearchQuery;
 
     public GraphQLSchema schema() {
         GraphQLSchema schema = new GraphQLSchemaGenerator()
                 .withBasePackages("io.github.mstachniuk.graphqljavaexample")
-                .withOperationsFromSingletons(spqrCustomerQuery, spqrCompanyQuery, spqrOrderQuery, spqrItemQuery, spqrUserQuery)
+                .withOperationsFromSingletons(spqrCustomerQuery,
+                        spqrCompanyQuery,
+                        spqrOrderQuery,
+                        spqrItemQuery,
+                        spqrUserQuery,
+                        spqrSearchQuery)
                 .generate();
 
         return schema;

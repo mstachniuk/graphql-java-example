@@ -14,7 +14,7 @@ go to: http://localhost:8000/graphiql
 
 Request 
 
-```
+```graphql
 {
   customer(id: "2") {
     id
@@ -45,7 +45,7 @@ Request
 
 or without graphiql:
 
-```
+```bash
 curl -X POST -H "Content-Type: application/json" -d '{
     "query":"{\n  customer(id: \"2\") {\n    id\n    name\n    email\n    company {\n      id\n      name\n      website\n    }\n    orders {\n      id\n      status\n      items {\n        id\n        name\n        amount\n        price\n        currency\n        producer {\n          id\n        }\n      }\n    }\n  }\n}",
     "variables":null,
@@ -55,7 +55,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 Response
 
-```
+```json
 {
   "data": {
     "customer": {
@@ -122,7 +122,7 @@ Now try yourself to remove some lines from request.
 
 Request
 
-```
+```graphql
 {
   customers {
     id
@@ -134,7 +134,7 @@ Request
 
 Response
 
-```
+```json
 {
   "data": {
     "customers": [
@@ -155,9 +155,9 @@ Response
 
 ## Variables
 
-Get Customer by ID Request:
+You can pass some variables to your query to avoid string concatenation. E.g.:
 
-```
+```graphql
 query queryName($customerID: String!) {
   customer(id: $customerID) {
     id
@@ -169,7 +169,7 @@ query queryName($customerID: String!) {
 
 Query Variables:
 
-```
+```json
 {
   "customerID": "2"
 }
@@ -177,7 +177,7 @@ Query Variables:
 
 Response
 
-```
+```json
 {
   "data": {
     "customers": {
@@ -189,11 +189,133 @@ Response
 }
 ```
 
+## Interfaces
+
+Your query cen return interface. 
+Interface can have a lot implementations.
+E.g. interface `User` is implemented by `Admin` and `Moderator` and both have more fields then interface definition.
+
+```graphql
+{
+  users {
+    __typename
+    id
+    name
+    email
+    ... on Admin {
+      superAdmin
+    }
+    ... on Moderator {
+      permissions
+    }
+  }
+}
+
+```
+
+Response
+
+```json
+{
+  "data": {
+    "users": [
+      {
+        "__typename": "Admin",
+        "id": "777",
+        "name": "Admin a",
+        "email": "admin@me.com",
+        "superAdmin": true
+      },
+      {
+        "__typename": "Moderator",
+        "id": "888",
+        "name": "Moderator",
+        "email": "mod@me.com",
+        "permissions": [
+          "Delete Customer",
+          "Delete Comment"
+        ]
+      }
+    ]
+  }
+}
+
+```
+
+## Union
+
+Your query can also return Union. It means type1 or type2 or type3...
+Types don't requre a common interface.
+
+```graphql
+{
+  search(input: "a") {
+    __typename
+    ... on User {
+      id
+      name
+    }
+    ... on Admin {
+      superAdmin
+    }
+    ... on Moderator {
+      permissions
+    }
+    ... on User {
+      id
+      name
+    }
+    ... on Customer {
+      id
+      name
+      company {
+        name
+      }
+    }
+  }
+}
+```
+
+Response
+
+```json
+{
+  "data": {
+    "search": [
+      {
+        "__typename": "Customer",
+        "id": "2",
+        "name": "name",
+        "company": {
+          "name": "Company Corp."
+        }
+      },
+      {
+        "__typename": "Admin",
+        "id": "777",
+        "name": "Admin a",
+        "superAdmin": true
+      },
+      {
+        "__typename": "Moderator",
+        "id": "888",
+        "name": "Moderator",
+        "permissions": [
+          "Delete Customer",
+          "Delete Comment"
+        ]
+      }
+    ]
+  }
+}
+
+``` 
+
 ## Create Customer
 
 Create Customer Request
 
-```
+```graphql
 mutation {
   createCustomer(input: {name: "MyName" email: "me@me.com" clientMutationId: "123"}) {
     customer {
@@ -208,7 +330,7 @@ mutation {
 
 Response
 
-```
+```json
 {
   "data": {
     "createCustomer": {
@@ -228,7 +350,7 @@ Response
 Create Customers Request using createCustomer mutation. 
 This solution use previous mutation + aliases.
 
-```
+```graphql
 mutation {
   cust1: createCustomer(input: {
     name: "a"
@@ -259,7 +381,7 @@ mutation {
 
 Response
 
-```
+```json
 {
   "data": {
     "cust1": {
@@ -286,7 +408,7 @@ Response
 
 Create Customers Request using array in input - another mutation
 
-```
+```graphql
 mutation mut1($cust: [CreateCustomer]){
   createCustomers(input: {
     customers: $cust, 
@@ -303,7 +425,7 @@ mutation mut1($cust: [CreateCustomer]){
 
 Query Variables:
 
-```
+```json
 {
   "cust": [
     {
@@ -320,7 +442,7 @@ Query Variables:
 
 Response
 
-```
+```json
 {
   "data": {
     "createCustomers": {
