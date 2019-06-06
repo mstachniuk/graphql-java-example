@@ -2,10 +2,7 @@ package io.github.mstachniuk.graphqljavaexample.graphql.codefirst;
 
 import graphql.schema.*;
 import io.github.mstachniuk.graphqljavaexample.company.CompanyDataFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomerFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomersFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
+import io.github.mstachniuk.graphqljavaexample.customer.*;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.search.SearchDataFetcher;
@@ -19,15 +16,14 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static graphql.Scalars.*;
-import static graphql.Scalars.GraphQLString;
 
 @Component
 public class CodeFirstConfiguration {
 
     @Autowired
-    private CustomerFetcher customerFetcher;
+    private CustomerDataFetcher customerDataFetcher;
     @Autowired
-    private CustomersFetcher customersFetcher;
+    private CustomersDataFetcher customersDataFetcher;
     @Autowired
     private CompanyDataFetcher companyDataFetcher;
     @Autowired
@@ -35,11 +31,11 @@ public class CodeFirstConfiguration {
     @Autowired
     private ItemDataFetcher itemDataFetcher;
     @Autowired
-    private CreateCustomerFetcher createCustomerFetcher;
+    private CreateCustomerDataFetcher createCustomerDataFetcher;
     @Autowired
-    private CreateCustomersFetcher createCustomersFetcher;
+    private CreateCustomersDataFetcher createCustomersDataFetcher;
     @Autowired
-    private DataFetcher deleteCustomerFetcher;
+    private DeleteCustomerDataFetcher deleteCustomerDataFetcher;
     @Autowired
     private UsersDataFetcher usersDataFetcher;
     @Autowired
@@ -95,7 +91,7 @@ public class CodeFirstConfiguration {
                                 .dataFetcher(orderDataFetcher)
                                 .build())
                         .build()))
-                .dataFetcher(customerFetcher)
+                .dataFetcher(customerDataFetcher)
                 .build();
     }
 
@@ -181,7 +177,7 @@ public class CodeFirstConfiguration {
         GraphQLFieldDefinition.Builder builder = GraphQLFieldDefinition.newFieldDefinition()
                 .name("customers")
                 .type(new GraphQLNonNull(new GraphQLList(new GraphQLTypeReference("Customer"))))
-                .dataFetcher(customersFetcher);
+                .dataFetcher(customersDataFetcher);
         return builder.build();
     }
 
@@ -228,7 +224,7 @@ public class CodeFirstConfiguration {
                                 .type(new GraphQLNonNull(GraphQLString))
                                 .build())
                         .build()))
-                .dataFetcher(createCustomerFetcher);
+                .dataFetcher(createCustomerDataFetcher);
     }
 
     private GraphQLFieldDefinition.Builder createCustomersBuilder() {
@@ -268,7 +264,7 @@ public class CodeFirstConfiguration {
                                 .type(new GraphQLNonNull(GraphQLString))
                                 .build())
                         .build()))
-                .dataFetcher(createCustomersFetcher);
+                .dataFetcher(createCustomersDataFetcher);
     }
 
     private GraphQLFieldDefinition.Builder deleteCustomerBuilder() {
@@ -298,7 +294,7 @@ public class CodeFirstConfiguration {
                                 .type(new GraphQLNonNull(GraphQLString))
                                 .build())
                         .build()))
-                .dataFetcher(deleteCustomerFetcher);
+                .dataFetcher(deleteCustomerDataFetcher);
     }
 
     private GraphQLFieldDefinition usersDefinition() {

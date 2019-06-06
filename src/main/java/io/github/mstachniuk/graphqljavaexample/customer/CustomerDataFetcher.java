@@ -9,14 +9,14 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.PropertyDataFetcher;
 
 @Component
-public class CustomerFetcher extends PropertyDataFetcher<Customer> {
+public class CustomerDataFetcher extends PropertyDataFetcher<Customer> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerFetcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerDataFetcher.class);
 
     @Autowired
     private CustomerService customerService;
 
-    public CustomerFetcher() {
+    public CustomerDataFetcher() {
         super("customer");
     }
 

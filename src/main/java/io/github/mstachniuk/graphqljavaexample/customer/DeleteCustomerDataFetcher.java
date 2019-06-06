@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class DeleteCustomerFetcher extends PropertyDataFetcher<DeleteCustomerPayload> {
+public class DeleteCustomerDataFetcher extends PropertyDataFetcher<DeleteCustomerPayload> {
 
     @Autowired
     private CustomerService customerService;
 
-    public DeleteCustomerFetcher() {
+    public DeleteCustomerDataFetcher() {
         super("deleteCustomer");
     }
 

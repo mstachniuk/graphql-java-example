@@ -1,16 +1,12 @@
 package io.github.mstachniuk.graphqljavaexample.graphql.schemafirst;
 
-import graphql.schema.DataFetcher;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import io.github.mstachniuk.graphqljavaexample.company.CompanyDataFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomerFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CreateCustomersFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CustomerFetcher;
-import io.github.mstachniuk.graphqljavaexample.customer.CustomersFetcher;
+import io.github.mstachniuk.graphqljavaexample.customer.*;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.search.SearchDataFetcher;
@@ -28,9 +24,9 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 public class SchemaFirstConfiguration {
 
     @Autowired
-    private CustomerFetcher customerFetcher;
+    private CustomerDataFetcher customerDataFetcher;
     @Autowired
-    private CustomersFetcher customersFetcher;
+    private CustomersDataFetcher customersDataFetcher;
     @Autowired
     private CompanyDataFetcher companyDataFetcher;
     @Autowired
@@ -38,11 +34,11 @@ public class SchemaFirstConfiguration {
     @Autowired
     private ItemDataFetcher itemDataFetcher;
     @Autowired
-    private CreateCustomerFetcher createCustomerFetcher;
+    private CreateCustomerDataFetcher createCustomerDataFetcher;
     @Autowired
-    private CreateCustomersFetcher createCustomersFetcher;
+    private CreateCustomersDataFetcher createCustomersDataFetcher;
     @Autowired
-    private DataFetcher deleteCustomerFetcher;
+    private DeleteCustomerDataFetcher deleteCustomerDataFetcher;
     @Autowired
     private UsersDataFetcher usersDataFetcher;
     @Autowired
@@ -56,9 +52,9 @@ public class SchemaFirstConfiguration {
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
                 .type("Query", builder ->
-                        builder.dataFetcher("customer", customerFetcher))
+                        builder.dataFetcher("customer", customerDataFetcher))
                 .type("Query", builder ->
-                        builder.dataFetcher("customers", customersFetcher))
+                        builder.dataFetcher("customers", customersDataFetcher))
                 .type("Customer", builder ->
                         builder.dataFetcher("company", companyDataFetcher))
                 .type("Customer", builder ->
@@ -66,11 +62,11 @@ public class SchemaFirstConfiguration {
                 .type("Order", builder ->
                         builder.dataFetcher("items", itemDataFetcher))
                 .type("Mutation", builder ->
-                        builder.dataFetcher("createCustomer", createCustomerFetcher))
+                        builder.dataFetcher("createCustomer", createCustomerDataFetcher))
                 .type("Mutation", builder ->
-                        builder.dataFetcher("createCustomers", createCustomersFetcher))
+                        builder.dataFetcher("createCustomers", createCustomersDataFetcher))
                 .type("Mutation", builder ->
-                        builder.dataFetcher("deleteCustomer", deleteCustomerFetcher))
+                        builder.dataFetcher("deleteCustomer", deleteCustomerDataFetcher))
                 .type(newTypeWiring("User")
                         .typeResolver(new UserTypeResolver())
                         .build())

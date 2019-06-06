@@ -10,7 +10,7 @@ import spock.lang.Specification
 // workaround for https://github.com/graphql-java-kickstart/graphql-spring-boot/issues/113
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = MainSchemaFirst)
-class DeleteCustomerFetcherSpec extends Specification {
+class DeleteCustomerDataFetcherSpec extends Specification {
 
     @Autowired
     GraphQLSchema graphQLSchema

@@ -20,6 +20,8 @@ public class SpqrConfiguration {
     private SpqrUserQuery spqrUserQuery;
     @Autowired
     private SpqrSearchQuery spqrSearchQuery;
+    @Autowired
+    private SpqrCustomerMutation spqrCustomerMutation;
 
     public GraphQLSchema schema() {
         GraphQLSchema schema = new GraphQLSchemaGenerator()
@@ -29,7 +31,8 @@ public class SpqrConfiguration {
                         spqrOrderQuery,
                         spqrItemQuery,
                         spqrUserQuery,
-                        spqrSearchQuery)
+                        spqrSearchQuery,
+                        spqrCustomerMutation)
                 .generate();
 
         return schema;
