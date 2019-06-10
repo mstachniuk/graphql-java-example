@@ -1,5 +1,7 @@
 package io.github.mstachniuk.graphqljavaexample.graphql.spqr;
 
+import io.leangen.graphql.annotations.GraphQLId;
+import io.leangen.graphql.annotations.GraphQLNonNull;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.annotations.types.GraphQLType;
 
@@ -15,17 +17,21 @@ public class SpqrCompany {
         this.website = website;
     }
 
+    @GraphQLId
     @GraphQLQuery
+    @GraphQLNonNull
     public String getId() {
         return id;
     }
 
     @GraphQLQuery
+    @GraphQLNonNull
     public String getName() {
         return name;
     }
 
     @GraphQLQuery
+    @GraphQLNonNull
     public String getWebsite() {
         return website;
     }

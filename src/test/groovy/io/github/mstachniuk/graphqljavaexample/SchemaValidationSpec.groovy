@@ -13,21 +13,21 @@ import static groovy.json.JsonOutput.toJson
 
 class SchemaValidationSpec extends Specification {
 
-	def "code first and schema first should be equals"() {
+	def "code first and schema first should be equal"() {
 		given:
 		def codeFirstContext = SpringApplication.run(MainCodeFirst.class, (String[]) ["--server.port=0"])
 		def schemaFirstContext = SpringApplication.run(MainSchemaFirst.class, (String[]) ["--server.port=0"])
 
-		def graphQLSchemaFirst = new GraphQL(schemaFirstContext.getBean(GraphQLSchema))
 		def graphQLCodeFirst = new GraphQL(codeFirstContext.getBean(GraphQLSchema))
+		def graphQLSchemaFirst = new GraphQL(schemaFirstContext.getBean(GraphQLSchema))
 
 		when:
-		ExecutionResult schemaFirstResult = graphQLSchemaFirst.execute(INTROSPECTION_QUERY)
 		ExecutionResult codeFirstResult = graphQLCodeFirst.execute(INTROSPECTION_QUERY)
+		ExecutionResult schemaFirstResult = graphQLSchemaFirst.execute(INTROSPECTION_QUERY)
 
 		then:
-		def schemaFirstIntroResult = removeDeprecated(schemaFirstResult.data)
 		def codeFirstIntroResult = toJson(codeFirstResult.data)
+		def schemaFirstIntroResult = removeDeprecated(schemaFirstResult.data)
 
 		// Uncomment for seeing  differences in better way
 //		println("Code First:\n" + JsonOutput.prettyPrint(toJson(codeFirstResult.data)) + "\n--------")
@@ -54,5 +54,23 @@ class SchemaValidationSpec extends Specification {
 			}
 		}
 		return toJson(schemaFirstIntroResult)
+	}
+
+	def "code first and SPQR should be equal"() {
+		given:
+		def codeFirstContext = SpringApplication.run(MainCodeFirst.class, (String[]) ["--server.port=0"])
+		def spqrContext = SpringApplication.run(MainSpqr.class, (String[]) ["--server.port=0"])
+
+		def graphQLCodeFirst = new GraphQL(codeFirstContext.getBean(GraphQLSchema))
+		def graphQLSpqr = new GraphQL(spqrContext.getBean(GraphQLSchema))
+
+		when:
+		ExecutionResult codeFirstResult = graphQLCodeFirst.execute(INTROSPECTION_QUERY)
+		ExecutionResult spqrResult = graphQLSpqr.execute(INTROSPECTION_QUERY)
+
+		then:
+		def codeFirstIntroResult = toJson(codeFirstResult.data)
+		def spqrIntroResult = toJson(spqrResult.data)
+		JSONAssert.assertEquals(codeFirstIntroResult, spqrIntroResult, false)
 	}
 }

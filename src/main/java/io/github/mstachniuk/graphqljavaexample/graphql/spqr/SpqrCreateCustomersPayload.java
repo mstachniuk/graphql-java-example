@@ -5,7 +5,7 @@ import io.leangen.graphql.annotations.types.GraphQLType;
 
 import java.util.List;
 
-@GraphQLType
+@GraphQLType(name = "CreateCustomersPayload")
 public class SpqrCreateCustomersPayload {
 
     private List<SpqrCustomer> customers;

@@ -1,0 +1,109 @@
+type Admin implements User {
+    email: String!
+    id: String!
+    name: String!
+    superAdmin: Boolean!
+}
+
+type Company {
+    id: String
+    name: String
+    website: String
+}
+
+input CreateCustomerInput {
+    clientMutationId: String
+    email: String
+    name: String
+}
+
+type CreateCustomerPayload {
+    clientMutationId: String
+    customer: Customer
+}
+
+input CreateCustomersInput {
+    clientMutationId: String
+    customers: [SpqrCreateCustomerInput]
+}
+
+type Customer {
+    company: Company
+    email: String
+    #fields with ! are not null
+    id: String
+    name: String
+    orders: [Order]
+}
+
+input DeleteCustomerInput {
+    clientMutationId: String
+    id: String
+}
+
+type DeleteCustomerPayload {
+    clientMutationId: String
+    customer: Customer
+}
+
+type Item {
+    amount: Int!
+    currency: String
+    id: String
+    name: String
+    price: String
+    producer: Company
+}
+
+type Moderator implements User {
+    email: String!
+    id: String!
+    name: String!
+    permissions: [String]
+}
+
+#Mutation root
+type Mutation {
+    createCustomer(input: CreateCustomerInput): CreateCustomerPayload
+    createCustomers(input: CreateCustomersInput): SpqrCreateCustomersPayload
+    deleteCustomer(input: DeleteCustomerInput): DeleteCustomerPayload
+}
+
+type Order {
+    id: String
+    items: [Item]
+    status: Status
+}
+
+#Query root
+type Query {
+    customer(id: String): Customer
+    customers: [Customer]
+    search(input: String): [SearchResult]
+    users: [User]
+}
+
+union SearchResult = Admin | Customer | Moderator
+
+input SpqrCreateCustomerInput {
+    email: String
+    name: String
+}
+
+type SpqrCreateCustomersPayload {
+    clientMutationId: String
+    customers: [Customer]
+}
+
+enum Status {
+    CANCELED, DONE, NEW
+}
+
+#Unrepresentable type
+scalar UNREPRESENTABLE
+
+interface User {
+    email: String!
+    id: String!
+    name: String!
+}
