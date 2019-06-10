@@ -1,14 +1,14 @@
-type Admin implements User {
+type Admin implements Node & User {
     email: String!
-    id: String!
+    id: ID!
     name: String!
     superAdmin: Boolean!
 }
 
-type Company {
-    id: String
-    name: String
-    website: String
+type Company implements Node {
+    id: ID!
+    name: String!
+    website: String!
 }
 
 input CreateCustomerInput {
@@ -19,20 +19,30 @@ input CreateCustomerInput {
 
 type CreateCustomerPayload {
     clientMutationId: String
-    customer: Customer
+    customer: Customer!
 }
 
 input CreateCustomersInput {
     clientMutationId: String
-    customers: [SpqrCreateCustomerInput]
+    customers: [CreateSingleCustomerInput]
+}
+
+type CreateCustomersPayload {
+    clientMutationId: String!
+    customers: [Customer]
+}
+
+input CreateSingleCustomerInput {
+    email: String
+    name: String
 }
 
 type Customer {
     company: Company
-    email: String
+    email: String!
     #fields with ! are not null
-    id: String
-    name: String
+    id: String!
+    name: String!
     orders: [Order]
 }
 
@@ -42,31 +52,37 @@ input DeleteCustomerInput {
 }
 
 type DeleteCustomerPayload {
-    clientMutationId: String
+    clientMutationId: String!
     customer: Customer
 }
 
-type Item {
-    amount: Int!
+type Item implements Node {
+    amount: Int
     currency: String
-    id: String
-    name: String
+    id: ID!
+    name: String!
     price: String
     producer: Company
 }
 
-type Moderator implements User {
+type Moderator implements Node & User {
     email: String!
-    id: String!
+    id: ID!
     name: String!
     permissions: [String]
 }
 
 #Mutation root
 type Mutation {
-    createCustomer(input: CreateCustomerInput): CreateCustomerPayload
-    createCustomers(input: CreateCustomersInput): SpqrCreateCustomersPayload
-    deleteCustomer(input: DeleteCustomerInput): DeleteCustomerPayload
+    createCustomer(input: CreateCustomerInput): CreateCustomerPayload!
+    createCustomers(input: CreateCustomersInput): CreateCustomersPayload!
+    deleteCustomer(input: DeleteCustomerInput): DeleteCustomerPayload!
+}
+
+#An object with an ID
+interface Node {
+    #The ID of an object
+    id: ID!
 }
 
 type Order {
@@ -85,16 +101,6 @@ type Query {
 
 union SearchResult = Admin | Customer | Moderator
 
-input SpqrCreateCustomerInput {
-    email: String
-    name: String
-}
-
-type SpqrCreateCustomersPayload {
-    clientMutationId: String
-    customers: [Customer]
-}
-
 enum Status {
     CANCELED, DONE, NEW
 }
@@ -104,6 +110,6 @@ scalar UNREPRESENTABLE
 
 interface User {
     email: String!
-    id: String!
+    id: ID!
     name: String!
 }

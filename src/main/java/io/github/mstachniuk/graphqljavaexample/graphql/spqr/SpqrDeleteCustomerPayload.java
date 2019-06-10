@@ -1,5 +1,6 @@
 package io.github.mstachniuk.graphqljavaexample.graphql.spqr;
 
+import io.leangen.graphql.annotations.GraphQLNonNull;
 import io.leangen.graphql.annotations.types.GraphQLType;
 
 @GraphQLType(name = "DeleteCustomerPayload")
@@ -24,6 +25,7 @@ public class SpqrDeleteCustomerPayload {
         this.customer = customer;
     }
 
+    @GraphQLNonNull
     public String getClientMutationId() {
         return clientMutationId;
     }

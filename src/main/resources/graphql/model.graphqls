@@ -43,14 +43,13 @@ type CreateCustomerPayload {
     clientMutationId: String!
 }
 
-#TODO: change name
-input CreateCustomer {
+input CreateSingleCustomerInput {
     name: String
     email: String
 }
 
 input CreateCustomersInput {
-    customers: [CreateCustomer]
+    customers: [CreateSingleCustomerInput]
     clientMutationId: String!
 }
 

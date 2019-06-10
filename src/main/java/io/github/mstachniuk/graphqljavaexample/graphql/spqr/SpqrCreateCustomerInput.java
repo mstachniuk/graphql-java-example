@@ -7,16 +7,12 @@ import io.leangen.graphql.annotations.types.GraphQLType;
 @GraphQLType(name = "CreateCustomer")
 public class SpqrCreateCustomerInput {
 
-    @GraphQLNonNull
-    @GraphQLInputField
     private String clientMutationId;
-
-    @GraphQLInputField
     private String name;
-
-    @GraphQLInputField
     private String email;
 
+    @GraphQLNonNull
+    @GraphQLInputField
     public String getClientMutationId() {
         return clientMutationId;
     }
@@ -25,6 +21,7 @@ public class SpqrCreateCustomerInput {
         this.clientMutationId = clientMutationId;
     }
 
+    @GraphQLInputField
     public String getName() {
         return name;
     }
@@ -33,6 +30,7 @@ public class SpqrCreateCustomerInput {
         this.name = name;
     }
 
+    @GraphQLInputField
     public String getEmail() {
         return email;
     }

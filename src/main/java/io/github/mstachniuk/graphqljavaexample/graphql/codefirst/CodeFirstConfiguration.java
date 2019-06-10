@@ -237,7 +237,7 @@ public class CodeFirstConfiguration {
                                 .field(GraphQLInputObjectField.newInputObjectField()
                                         .name("customers")
                                         .type(new GraphQLList(GraphQLInputObjectType.newInputObject()
-                                                .name("CreateCustomer")
+                                                .name("CreateSingleCustomerInput")
                                                 .field(GraphQLInputObjectField.newInputObjectField()
                                                         .name("name")
                                                         .type(GraphQLString)

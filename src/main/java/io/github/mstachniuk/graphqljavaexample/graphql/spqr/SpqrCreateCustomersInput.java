@@ -36,7 +36,7 @@ public class SpqrCreateCustomersInput {
     }
 }
 
-@GraphQLType(name = "CreateCustomer")
+@GraphQLType(name = "CreateSingleCustomer")
 class SpqrCreateCustomer {
     @GraphQLInputField
     private String name;

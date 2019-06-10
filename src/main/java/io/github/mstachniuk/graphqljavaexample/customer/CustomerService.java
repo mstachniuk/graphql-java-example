@@ -15,6 +15,7 @@ public class CustomerService {
 	private Random random = new Random();
 
 	public CustomerService() {
+		db.put("1", new Customer("1", "customer1", "cus@tom.er"));
 		db.put("2", new Customer("2", "name", "a@b.com"));
 		db.put("3", new Customer("3", "John Doe", "john@doe.com"));
 	}

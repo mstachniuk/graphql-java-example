@@ -1,5 +1,6 @@
 package io.github.mstachniuk.graphqljavaexample.graphql.spqr;
 
+import io.leangen.graphql.annotations.GraphQLInputField;
 import io.leangen.graphql.annotations.GraphQLNonNull;
 import io.leangen.graphql.annotations.types.GraphQLType;
 
@@ -8,7 +9,6 @@ public class SpqrCreateCustomerPayload {
 
     private SpqrCustomer customer;
 
-    @GraphQLNonNull
     private String clientMutationId;
 
     public SpqrCreateCustomerPayload() {
@@ -19,6 +19,8 @@ public class SpqrCreateCustomerPayload {
         this.clientMutationId = clientMutationId;
     }
 
+    @GraphQLInputField
+    @GraphQLNonNull                     // not visible in schema, bug?
     public SpqrCustomer getCustomer() {
         return customer;
     }

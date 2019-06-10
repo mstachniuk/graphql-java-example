@@ -6,6 +6,7 @@ import graphql.schema.GraphQLSchema
 import groovy.json.JsonSlurper
 import org.skyscreamer.jsonassert.JSONAssert
 import org.springframework.boot.SpringApplication
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import static graphql.introspection.IntrospectionQuery.INTROSPECTION_QUERY
@@ -56,7 +57,8 @@ class SchemaValidationSpec extends Specification {
 		return toJson(schemaFirstIntroResult)
 	}
 
-	def "code first and SPQR should be equal"() {
+	@Ignore
+	"code first and SPQR should be equal"() {
 		given:
 		def codeFirstContext = SpringApplication.run(MainCodeFirst.class, (String[]) ["--server.port=0"])
 		def spqrContext = SpringApplication.run(MainSpqr.class, (String[]) ["--server.port=0"])

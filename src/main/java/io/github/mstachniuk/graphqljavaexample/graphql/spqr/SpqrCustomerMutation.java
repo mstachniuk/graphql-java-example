@@ -4,6 +4,7 @@ import io.github.mstachniuk.graphqljavaexample.customer.Customer;
 import io.github.mstachniuk.graphqljavaexample.customer.CustomerService;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
+import io.leangen.graphql.annotations.GraphQLNonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +19,13 @@ public class SpqrCustomerMutation {
     private CustomerService customerService;
 
     @GraphQLMutation
-    public SpqrCreateCustomerPayload createCustomer(@GraphQLArgument(name = "input") SpqrCreateCustomerInput input) {
+    public @GraphQLNonNull SpqrCreateCustomerPayload createCustomer(@GraphQLArgument(name = "input") SpqrCreateCustomerInput input) {
         Customer customer = customerService.create(input.getName(), input.getEmail());
         return new SpqrCreateCustomerPayload(toSpqr(customer), input.getClientMutationId());
     }
 
     @GraphQLMutation
-    public SpqrCreateCustomersPayload createCustomers(@GraphQLArgument(name = "input") SpqrCreateCustomersInput input) {
+    public @GraphQLNonNull SpqrCreateCustomersPayload createCustomers(@GraphQLArgument(name = "input") SpqrCreateCustomersInput input) {
         List<SpqrCustomer> customers = input.getCustomers().stream()
                 .map(customer -> customerService.create(customer.getName(), customer.getEmail()))
                 .map(this::toSpqr)
@@ -33,7 +34,7 @@ public class SpqrCustomerMutation {
     }
 
     @GraphQLMutation
-    public SpqrDeleteCustomerPayload deleteCustomer(@GraphQLArgument(name = "input") SpqrDeleteCustomerInput input) {
+    public @GraphQLNonNull SpqrDeleteCustomerPayload deleteCustomer(@GraphQLArgument(name = "input") SpqrDeleteCustomerInput input) {
         Customer customer = customerService.delete(input.getId());
         return new SpqrDeleteCustomerPayload(toSpqr(customer), input.getClientMutationId());
     }
