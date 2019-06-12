@@ -404,15 +404,13 @@ Response
 }
 ```
 
-## Create Customers 2
+## Create Customers in bulk
 
 Create Customers Request using array in input - another mutation
 
 ```graphql
-mutation mut1($cust: [CreateCustomer]){
-  createCustomers(input: {
-    customers: $cust, 
-    clientMutationId: "123"}) {
+mutation mut1($cust: CreateCustomersInput) {
+  createCustomers(input: $cust) {
     customers {
       id
       name
@@ -427,16 +425,19 @@ Query Variables:
 
 ```json
 {
-  "cust": [
-    {
-      "name": "c",
-      "email": "c@c.c"
-    },
-    {
-      "name": "d",
-      "email": "d@d.d"
-    }
-  ]
+  "cust": {
+    "customers": [
+      {
+        "name": "name1",
+        "email": "email1"
+      },
+      {
+        "name": "name2",
+        "email": "email2"
+      }
+    ],
+    "clientMutationId": "111"
+  }
 }
 ```
 
@@ -448,17 +449,17 @@ Response
     "createCustomers": {
       "customers": [
         {
-          "id": "97",
-          "name": "c",
-          "email": "c@c.c"
+          "id": "991",
+          "name": "name1",
+          "email": "email1"
         },
         {
-          "id": "531",
-          "name": "d",
-          "email": "d@d.c"
+          "id": "326",
+          "name": "name2",
+          "email": "email2"
         }
       ],
-      "clientMutationId": "123"
+      "clientMutationId": "111"
     }
   }
 }
