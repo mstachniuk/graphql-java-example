@@ -189,6 +189,124 @@ Response
 }
 ```
 
+## Aliases
+
+You can use Get 2 customers in one call. To discriminate the you can use aliases:
+
+```graphql
+query get2Cust {
+  cust2: customer(id: "2") {
+    id
+    name
+    email
+  }
+  cust3: customer(id: "3") {
+    id
+    name
+    email
+  }
+}
+```
+
+Response
+
+```json
+{
+  "data": {
+    "cust2": {
+      "id": "2",
+      "name": "name",
+      "email": "a@b.com"
+    },
+    "cust3": {
+      "id": "3",
+      "name": "John Doe",
+      "email": "john@doe.com"
+    }
+  }
+}
+```
+
+## Fragments
+
+To avoid duplication in queries.
+
+```graphql
+query get2Cust {
+  cust2: customer(id: "2") {
+    ...frag1
+  }
+  cust3: customer(id: "3") {
+    ...frag1
+  }
+}
+
+fragment frag1 on Customer {
+  id
+  name
+  email
+}
+```
+
+Response
+
+```json
+{
+  "data": {
+    "cust2": {
+      "id": "2",
+      "name": "name",
+      "email": "a@b.com"
+    },
+    "cust3": {
+      "id": "3",
+      "name": "John Doe",
+      "email": "john@doe.com"
+    }
+  }
+}
+```
+
+## Directives
+
+You can include or exclude fields in query using irective `@include` or `@skip`. 
+You can also define custom directives. 
+
+```graphql
+query getCust ($showEmail: Boolean!) {
+   customer(id: "2") {
+       id
+       name
+       email @include(if: $showEmail)
+   }
+}
+```
+
+## Variables inside fragments
+
+```graphql
+query get2Cust($arg1:String!, $showEmail: Boolean!) {
+  customer(id: $arg1) {
+    ...frag1
+  }
+}
+
+fragment frag1 on Customer{
+  id
+  name
+  email @include(if: $showEmail)
+}
+```
+
+Query Variables
+
+```json
+{
+  "showEmail": false,
+  "arg1": "1"
+}
+```
+
 ## Interfaces
 
 Your query cen return interface. 
