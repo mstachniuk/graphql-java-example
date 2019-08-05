@@ -4,6 +4,7 @@ import graphql.schema.*;
 import io.github.mstachniuk.graphqljavaexample.company.CompanyDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.customer.*;
 import io.github.mstachniuk.graphqljavaexample.item.ItemDataFetcher;
+import io.github.mstachniuk.graphqljavaexample.node.NodeResolver;
 import io.github.mstachniuk.graphqljavaexample.order.OrderDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.search.SearchDataFetcher;
 import io.github.mstachniuk.graphqljavaexample.search.SearchResultResolver;
@@ -66,6 +67,7 @@ public class CodeFirstConfiguration {
                         .name("id")
                         .type(new GraphQLNonNull(GraphQLString)))
                 .type(new GraphQLNonNull(GraphQLObjectType.newObject()
+                        .withInterface(nodeInterfaceDefinition())
                         .name("Customer")
                         .field(GraphQLFieldDefinition.newFieldDefinition()
                                 .name("id")
@@ -388,6 +390,17 @@ public class CodeFirstConfiguration {
                         .typeResolver(new SearchResultResolver())
                         .build()))
                 .dataFetcher(searchDataFetcher)
+                .build();
+    }
+
+    private GraphQLInterfaceType nodeInterfaceDefinition() {
+        return GraphQLInterfaceType.newInterface()
+                .name("Node")
+                .field(GraphQLFieldDefinition.newFieldDefinition()
+                        .name("id")
+                        .type(new GraphQLNonNull(GraphQLID))
+                        .build())
+                .typeResolver(new NodeResolver())
                 .build();
     }
 }

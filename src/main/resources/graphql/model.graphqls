@@ -7,7 +7,7 @@ type Customer {
     orders: [Order]
 }
 
-type Company {
+type Company implements Node {
     id: ID!
     name: String!
     website: String!
@@ -23,7 +23,7 @@ enum Status {
     NEW, CANCELED, DONE
 }
 
-type Item {
+type Item implements Node {
     id: ID!
     name: String!
     amount: Int
@@ -87,14 +87,14 @@ interface User {
     email: String!
 }
 
-type Admin implements User {
+type Admin implements Node & User {
     id: ID!
     name: String!
     email: String!
     superAdmin: Boolean!
 }
 
-type Moderator implements User {
+type Moderator implements Node & User {
     id: ID!
     name: String!
     email: String!
@@ -102,3 +102,9 @@ type Moderator implements User {
 }
 
 union SearchResult = Customer | Admin | Moderator
+
+#An object with an ID
+interface Node {
+    #The ID of an object
+    id: ID!
+}
