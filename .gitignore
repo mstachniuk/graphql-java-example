@@ -4,6 +4,7 @@
 /build
 *.class
 *.iml
+.gradle
 
 # Log file
 *.log
