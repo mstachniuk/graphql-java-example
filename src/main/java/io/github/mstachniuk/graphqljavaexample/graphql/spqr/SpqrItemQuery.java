@@ -25,7 +25,7 @@ public class SpqrItemQuery {
 
     @GraphQLQuery(name = "items")
     public List<SpqrItem> getItemsForOrders(@GraphQLContext SpqrOrder order,
-                                            @GraphQLRootContext graphql.servlet.GraphQLContext context) {
+                                            @GraphQLRootContext graphql.GraphQLContext context) {
         LOGGER.info("getItems for Customer " + context.toString());
         return toSpqr(itemService.getItemsByOrderId(order.getId()));
     }

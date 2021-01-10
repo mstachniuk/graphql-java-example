@@ -3,14 +3,19 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext {
-        springBootVersion = '2.0.1.RELEASE'
+        springBootVersion = '2.4.1'
+        graphqlSpringBootVersion = '8.1.1'
+        spockVercion = '2.0-M4-groovy-3.0'
     }
+    ext['groovy.version'] = '3.0.6'
+
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+
 }
 
 apply plugin: 'application'
@@ -18,21 +23,22 @@ apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.11
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'com.graphql-java-kickstart:graphql-spring-boot-starter:5.2'
-    compile 'com.graphql-java-kickstart:graphiql-spring-boot-starter:5.2'
-    compile 'io.leangen.graphql:spqr:0.9.9'
-    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
-    testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4'
-    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    testCompile 'org.skyscreamer:jsonassert:1.5.0'
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "com.graphql-java-kickstart:graphql-spring-boot-starter:$graphqlSpringBootVersion"
+    compile "com.graphql-java-kickstart:graphiql-spring-boot-starter:$graphqlSpringBootVersion"
+    compile "io.leangen.graphql:spqr:0.9.9"
+    compile "org.codehaus.groovy:groovy-json"
+    testCompile "org.spockframework:spock-core:$spockVercion"
+    testCompile "org.spockframework:spock-spring:$spockVercion"
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    testCompile "org.skyscreamer:jsonassert:1.5.0"
 }
 
 springBoot {
@@ -42,3 +48,8 @@ springBoot {
 bootJar {
     mainClassName = 'io.github.mstachniuk.graphqljavaexample.MainCodeFirst'
 }
+
+//tasks.withType(JavaCompile) {
+//    options.compilerArgs << '-Xlint:unchecked'
+//    options.deprecation = true
+//}
