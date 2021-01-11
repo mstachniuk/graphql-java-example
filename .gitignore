@@ -2,6 +2,7 @@
 *.iws
 /out/
 /build
+*/build
 *.class
 *.iml
 .gradle

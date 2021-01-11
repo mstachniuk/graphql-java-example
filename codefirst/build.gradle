@@ -1,0 +1,32 @@
+//plugins {
+//    id 'java'
+//}
+
+apply plugin: 'application'
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'io.github.mstachniuk'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":commons")
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:$graphqlSpringBootVersion"
+    implementation "com.graphql-java-kickstart:graphiql-spring-boot-starter:$graphqlSpringBootVersion"
+    implementation "org.codehaus.groovy:groovy-json"
+    testImplementation "org.spockframework:spock-core:$spockVercion"
+    testImplementation "org.spockframework:spock-spring:$spockVercion"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    testImplementation "org.skyscreamer:jsonassert:1.5.0"
+}
+
+test {
+    useJUnitPlatform()
+}

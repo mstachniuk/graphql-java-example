@@ -4,11 +4,13 @@
 
 ```
 ./gradlew clean build
-./gradlew bootRun
+./gradlew :schemafirst:bootRun
 
 ```
 
 go to: http://localhost:8000/graphiql
+
+The old version of this code for Java 8 available under tag `java-8`.
 
 ## Get Customer by id 
 
