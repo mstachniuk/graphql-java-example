@@ -1,2 +1,6 @@
 rootProject.name = 'graphql-java-example'
+include 'spqr'
+include 'codefirst'
+include 'schemafirst'
+include 'commons'
 

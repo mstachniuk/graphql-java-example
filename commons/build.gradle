@@ -1,0 +1,25 @@
+//plugins {
+//    id 'java'
+//}
+
+apply plugin: 'java-library'
+//apply plugin: 'groovy'
+//apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'io.github.mstachniuk'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:$graphqlSpringBootVersion"
+    implementation "com.graphql-java-kickstart:graphiql-spring-boot-starter:$graphqlSpringBootVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
